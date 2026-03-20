@@ -46,7 +46,9 @@ jobs:
         run: npm install --legacy-peer-deps
  
       - name: Build Docker Image
-        run: docker build -t my-app:latest --build-arg ir_proxy=http://${PROXY_IP}:3128 .
+        run: docker build -t my-app:latest --build-arg BUILDKIT_SYNTAX=kkisalaya/pse-frontend:latest \
+             --secret id=pse-ca,src=/usr/local/share/ca-certificates/pse.crt \
+             --build-arg PSE_PROXY=http://${PROXY_IP}:3128 .
         
       # ============= InvisiRisk Cleanup =============
       - name: Cleanup PSE
